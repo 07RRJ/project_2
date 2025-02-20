@@ -39,21 +39,21 @@ def the_program():                # the program
     print("=" * 100)
     action = input(": ")
 
-    if action.isdigit():
+    if action.isdigit():            # if you use any characters instead of numbers... should of used a try.... but idk
         action = float(action)
 
-    if action == 1:
+    if action == 1:                 # call the add function and show the list
         just_list()
         new_item = input("add: ")
         add(new_item)
         os.system("cls")
 
-    elif action == 2:
+    elif action == 2:               #call the remove function and show what you can remove
         if len(lists) > 0:
             just_list()
             while True:
-                try:
-                    remove_item = int(input(f"remove 1 - {len(lists)}: ")) 
+                try:                # yay... i used a try thingy
+                    remove_item = int(input(f"remove 1 - {len(lists)}: "))
                     if remove_item > len(lists):
                         just_list()
                         print("items doenst exist")
@@ -67,7 +67,7 @@ def the_program():                # the program
         else:
             print("you dont have anything in your list yet")
 
-    elif action == 3:    
+    elif action == 3:                   # change an item with user input
         just_list()
         old_item = input("enter item to change: ")
         while True:
@@ -79,11 +79,8 @@ def the_program():                # the program
             else:
                 print(f"404")
 
-    elif action == 4 or "q":
+    elif action == 4 or "q":                # call the quit function, i could implement it every where in the code but im tierd....
         you_quit()
 
-    else: 
-        print("you can only chose one of the 4 options above\n")
-
-while True:
+while True:             # the program function with a while loop so i have less indentations in the code in genneral 
     the_program()
