@@ -3,43 +3,87 @@ import sys
 
 os.system("cls")
 
-lists = ""                    # variables
+lists = []                    # the list of doom
+list_item = 0
+item = ""
 
-def show_list(lists):
+def add(new_item):              # add an item
+    lists.append(new_item)
+
+def remove(remove_item):              # remove a item
+    lists.pop(remove_item - 1)          # the list doesnt start from 0 in the ui so -1 backend
+
+def change(old_item, new_item):             # change an item with another one
+    index = lists.index(old_item)
+    lists[index] = new_item             
+
+def just_list():                    # show the list content
     os.system("cls")
-    print(list)
+    print("=" * 100)
+    print(" " * 45, "The list")
+    for list_item, item in enumerate(lists, 1):          #correct way to show list items
+        print(f"{list_item}) {item}")
+    print("=" * 100)
 
-def add(lists, add):
-    lists.append(add)
-    return b
+def you_quit():             # quitting the application in a fancy pants way
+    just_list()
+    sys.exit("you quit")
 
-def remove(lists, ):
-    lists.pop(x)
 
-def change(x, y):
-    list[x] = y
+def the_program():                # the program
+    os.system("cls")
+    print("=" * 100)
+    print("\"1\" to add\n\"2\" to remove\n\"3\" to change\n\"4\" or \"q\" to quit\n")               # options
+    for list_item, item in enumerate(lists, 1):          #and ctrl + c ctrl+ v to show the list in the menue, this is optional though in my opinion 
+        print(f"{list_item}) {item}")
+    print("=" * 100)
+    action = input(": ")
 
-# def quit_(a):
-#     sys.exit("you quit")
-
-while True:                 # the main loop
-    action = input("\"1\" to add\n\"2\" to remove\n\"3\" to change\n\"4\" or \"q\" to quit\n\n")
     if action.isdigit():
         action = float(action)
-        print("action is an int")
-    if action == 1:
-        add(lists, x = input("add: "))
-        print(lists)
-    
-    elif action == 2:
-        remove(x = int(input(f"chose between 0 - {len(lists)} to remove it: ")))
-    
-    elif action == 3:
-        change()
 
-    elif action == 4:
-        sys.exit("you quit")
+    if action == 1:
+        just_list()
+        new_item = input("add: ")
+        add(new_item)
+        os.system("cls")
+
+    elif action == 2:
+        if len(lists) > 0:
+            just_list()
+            while True:
+                try:
+                    remove_item = int(input(f"remove 1 - {len(lists)}: ")) 
+                    if remove_item > len(lists):
+                        just_list()
+                        print("items doenst exist")
+                    else:
+                        remove(remove_item)
+                        os.system("cls")
+                        break
+                except:
+                    just_list()
+                    print(f"you can only choose between 1 - {len(lists)}")
+        else:
+            print("you dont have anything in your list yet")
+
+    elif action == 3:    
+        just_list()
+        old_item = input("enter item to change: ")
+        while True:
+            if old_item in lists:
+                new_item = input("enter the new item: ")
+                change(old_item, new_item)
+                os.system("cls")
+                break
+            else:
+                print(f"404")
+
+    elif action == 4 or "q":
+        you_quit()
 
     else: 
-        print("you can only chose one of the 4 options above")
+        print("you can only chose one of the 4 options above\n")
 
+while True:
+    the_program()
