@@ -6,6 +6,7 @@ os.system("cls")
 lists = []                    # the list of doom
 list_item = 0
 item = ""
+error_msg = ""
 
 def add(new_item):              # add an item
     lists.append(new_item)
@@ -33,7 +34,7 @@ def you_quit():             # quitting the application in a fancy pants way
 def the_program():                # the program
     os.system("cls")
     print("=" * 100)
-    print("\"1\" to add\n\"2\" to remove\n\"3\" to change\n\"4\" or \"q\" to quit\n")               # options
+    print("\"1\" to add\n\"2\" to remove\n\"3\" to change\n\"4\" to quit\n")               # options
     for list_item, item in enumerate(lists, 1):          #and ctrl + c ctrl+ v to show the list in the menue, this is optional though in my opinion 
         print(f"{list_item}) {item}")
     print("=" * 100)
@@ -64,20 +65,20 @@ def the_program():                # the program
                 except:
                     just_list()
                     print(f"you can only choose between 1 - {len(lists)}")
-        else:
-            print("you dont have anything in your list yet")
 
     elif action == 3:                   # change an item with user input
-        just_list()
-        old_item = input("enter item to change: ")
-        while True:
-            if old_item in lists:
-                new_item = input("enter the new item: ")
-                change(old_item, new_item)
-                os.system("cls")
-                break
-            else:
-                print(f"404")
+        if len(lists) > 0:
+            just_list()
+            while True:
+                old_item = input("enter item to change: ")
+                if old_item in lists:
+                    new_item = input("enter the new item: ")    
+                    change(old_item, new_item)
+                    os.system("cls")
+                    break
+                else:
+                    just_list()
+                    print(f"404")
 
     elif action == 4 or "q":                # call the quit function, i could implement it every where in the code but im tierd....
         you_quit()
